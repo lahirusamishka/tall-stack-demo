@@ -2,6 +2,7 @@ version: '3.8'
 name: 'drop-in-docker-php'
 services:
  mysql:
+  platform: linux/amd64
   image: mysql:8.0.33
   env_file:
    - ./env/mysql.env
@@ -17,6 +18,7 @@ services:
   ports:
    - $ADMINER_PORT:8080
  mailhog:
+  platform: linux/amd64
   image: mailhog/mailhog:v1.0.1
   ports:
    - $MAILHOG_SMTP_PORT:1025
@@ -33,6 +35,8 @@ services:
    - ./vols/app/docker-user-home/:/home/www-data/
   env_file:
    - ./env/app.env
+  ports:
+   - "5173:5173" 
  static:
   image: nginx:1.24.0-alpine3.17
   volumes:
